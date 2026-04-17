@@ -21,7 +21,7 @@ public class Prenotazione {
     @JoinColumn(name = "viaggio-id", nullable = false)
     private Viaggio viaggio;
     @Column(nullable = false)
-    private LocalDate dataRichiesta;
+    private LocalDate data;
     @Column
     private String descrizione;
 }

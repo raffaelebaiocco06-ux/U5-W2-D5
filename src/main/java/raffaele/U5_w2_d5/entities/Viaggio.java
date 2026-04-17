@@ -3,7 +3,6 @@ package raffaele.U5_w2_d5.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import raffaele.U5_w2_d5.enumm.StatoViaggio;
 
 import java.time.LocalDate;
 
@@ -11,7 +10,6 @@ import java.time.LocalDate;
 @Table(name="viaggi")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @ToString
 
@@ -23,7 +21,12 @@ public class Viaggio {
     private String destinazione;
     @Column(nullable = false)
     private LocalDate data;
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private StatoViaggio stato;
+    private String stato;
+
+    public Viaggio(String destinazione, LocalDate data, String stato) {
+        this.destinazione = destinazione;
+        this.data = data;
+        this.stato = stato;
+    }
 }
