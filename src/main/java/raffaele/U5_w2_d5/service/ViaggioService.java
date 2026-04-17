@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import raffaele.U5_w2_d5.entities.Viaggio;
+import raffaele.U5_w2_d5.exeptionn.BadRequestException;
 import raffaele.U5_w2_d5.exeptionn.NotFoundException;
 import raffaele.U5_w2_d5.payload.ViaggioDTO;
 import raffaele.U5_w2_d5.repository.ViaggioRepository;
@@ -20,15 +21,14 @@ public class ViaggioService {
         this.viaggioRepository = viaggioRepository;
     }
 
-    public List<Viaggio> findAll() {
-        return viaggioRepository.findAll();
-    }
-
     public Viaggio salva(ViaggioDTO body){
+        if (viaggioRepository.existsByData(body.data())) throw new BadRequestException("Ce gia un viaggio per la data: " + body.data());
+
+        //so senza controlli
         Viaggio viaggio= new Viaggio(body.destinazione(),body.data(),body.stato());
         return viaggioRepository.save(viaggio);
     }
-    public Viaggio findById(Long id) {
+    public Viaggio findById(long id) {
         return viaggioRepository.findById(id).orElseThrow(() -> new NotFoundException("Viaggio " + id + " non trovato"));
     }
     public Page<Viaggio> findAll(int page, int size, String sortBy){

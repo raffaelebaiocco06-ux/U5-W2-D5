@@ -9,7 +9,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+// ho dovuto togliere @AllArgsConstructor perche mi rompeva tutto
+// lombok non mi piace piu hahahahaha..meglio fare a mano..dall prossima faccio a mano che non tribbolo
 public class Prenotazione {
     @Id
     @GeneratedValue
@@ -24,4 +25,11 @@ public class Prenotazione {
     private LocalDate data;
     @Column
     private String descrizione;
+
+    public Prenotazione(Dipendente dipendente, Viaggio viaggio, LocalDate data, String descrizione) {
+        this.dipendente = dipendente;
+        this.viaggio = viaggio;
+        this.data = data;
+        this.descrizione = descrizione;
+    }
 }
